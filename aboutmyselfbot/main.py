@@ -12,12 +12,8 @@ a = Basa("basa.json")
 async def about(ctx, user = ""):
     if user == "": user = str(ctx.author.id)
     else:
-        try:
-            user = user.replace("<@", "")
-            user = user.replace(">", "")
-        except:
-            emb = discord.Embed(title = "error", colour = 11110385)
-            await ctx.send(embed = emb, ephemeral = True)
+        user = user.replace("<@", "")
+        user = user.replace(">", "")
     if a.user_in(user=user):
         emb = discord.Embed(title = a.get_title(user=user), colour = a.get_color(user=user), url = a.get_url(user=user), description=a.get_description(user=user))
         if a.get_author(user=user) != None:    
@@ -35,7 +31,9 @@ async def setTitle(ctx, *text):
     user = str(ctx.author.id)
     if not a.user_in(user=user):
         a.make_new(user=user)
-    a.set_title(user=user, mean=" ".join(list(text)))
+    if len(text) == 0: text = None
+    else: text = " ".join(list(text))
+    a.set_title(user=user, mean=text)
     await ctx.message.add_reaction("✅")
 
 @bot.command()
@@ -43,7 +41,9 @@ async def setText(ctx, *text):
     user = str(ctx.author.id)
     if not a.user_in(user=user):
         a.make_new(user=user)
-    a.set_description(user=user, mean=" ".join(list(text)))
+    if len(text) == 0: text = None
+    else: text = " ".join(list(text))
+    a.set_description(user=user, mean=text)
     await ctx.message.add_reaction("✅")
 
 @bot.command()
@@ -51,7 +51,9 @@ async def setUrl(ctx, *text):
     user = str(ctx.author.id)
     if not a.user_in(user=user):
         a.make_new(user=user)
-    a.set_url(user=user, mean=" ".join(list(text)))
+    if len(text) == 0: text = None
+    else: text = " ".join(list(text))
+    a.set_url(user=user, mean=text)
     await ctx.message.add_reaction("✅")
 
 @bot.command()
@@ -59,15 +61,21 @@ async def setAuthor(ctx, *text):
     user = str(ctx.author.id)
     if not a.user_in(user=user):
         a.make_new(user=user)
-    a.set_author(user=user, mean=" ".join(list(text)))
+    if len(text) == 0: text = None
+    else: text = " ".join(list(text))
+    a.set_author(user=user, mean=text)
     await ctx.message.add_reaction("✅")
 
 @bot.command()
-async def setAuthorIcon(ctx, *text):
+async def setAuthorIcon(ctx, url = ""):
     user = str(ctx.author.id)
+    if url == "" and len(ctx.message.attachments) == 0:
+        url = None
+    elif len(ctx.message.attachments) != 0:
+        url = ctx.message.attachments[0].url
     if not a.user_in(user=user):
         a.make_new(user=user)
-    a.set_author_icon(user=user, mean=" ".join(list(text)))
+    a.set_author_icon(user=user, mean=url)
     await ctx.message.add_reaction("✅")
 
 @bot.command()
@@ -75,7 +83,9 @@ async def setAuthorUrl(ctx, *text):
     user = str(ctx.author.id)
     if not a.user_in(user=user):
         a.make_new(user=user)
-    a.set_author_url(user=user, mean=" ".join(list(text)))
+    if len(text) == 0: text = None
+    else: text = " ".join(list(text))
+    a.set_author_url(user=user, mean=text)
     await ctx.message.add_reaction("✅")
 
 @bot.command()
@@ -107,7 +117,9 @@ async def setFooter(ctx, *text):
     user = str(ctx.author.id)
     if not a.user_in(user=user):
         a.make_new(user=user)
-    a.set_footer(user=user, mean=" ".join(list(text)))
+    if len(text) == 0: text = None
+    else: text = " ".join(list(text))
+    a.set_footer(user=user, mean=text)
     await ctx.message.add_reaction("✅")
 
 @bot.command()
@@ -131,4 +143,4 @@ async def clearAll(ctx):
         await ctx.message.add_reaction("✅")
 
 
-bot.run('TOKEN')
+bot.run('MTAxNTUzOTM5MjM5MzI1MjkyNA.GfPHzx.fpcs0Ebce8NlI0YR5nMX6DLyJq-I8dkwzZQnbE')
