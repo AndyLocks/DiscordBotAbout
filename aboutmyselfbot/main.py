@@ -143,4 +143,4 @@ async def clearAll(ctx):
         await ctx.message.add_reaction("✅")
 
 
-bot.run('MTAxNTUzOTM5MjM5MzI1MjkyNA.GfPHzx.fpcs0Ebce8NlI0YR5nMX6DLyJq-I8dkwzZQnbE')
+bot.run('TOKEN')
